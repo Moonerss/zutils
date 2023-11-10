@@ -7,6 +7,6 @@
 ##' @return vector
 ##' @author Erjie Zhao
 ##' @export
-get_infinite <- function(x) {
+get_finite <- function(x) {
   x[is.finite(x)]
 }
