@@ -14,7 +14,7 @@ get_color_palette(
 \arguments{
 \item{n}{number of colors to generate}
 
-\item{alpha}{factor modifying the opacity alpha; typically between 0 to 1}
+\item{alpha}{factor modifying the opacity alpha; typically in [0,1]}
 
 \item{theme}{color from different color theme}
 }

@@ -3,7 +3,7 @@
 #' @description Many beautiful color palette collected by Erjie.
 #'
 #' @param n number of colors to generate
-#' @param alpha factor modifying the opacity alpha; typically between 0 to 1
+#' @param alpha factor modifying the opacity alpha; typically in \[0,1]
 #' @param theme color from different color theme
 #'
 #' @importFrom grDevices adjustcolor
