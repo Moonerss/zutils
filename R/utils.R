@@ -10,3 +10,22 @@
 get_finite <- function(x) {
   x[is.finite(x)]
 }
+
+
+#' Transpose dgRMatrix to dgCMatrix
+#'
+#' @param dgRMatrix_obj a \code{dgRMatrix} object
+#' @return A dgCMatrix that is the transposed dgRMatrix
+#' @export
+transpose_dgRMatrix <- function(dgRMatrix_obj) {
+  if(class(dgRMatrix_obj) != 'dgRMatrix')
+    stop('inmat is not of class dgRMatrix')
+  out <- new('dgCMatrix',
+             i=dgRMatrix_obj@j,
+             p=dgRMatrix_obj@p,
+             x=dgRMatrix_obj@x,
+             Dim=rev(dgRMatrix_obj@Dim),
+             Dimnames=rev(dgRMatrix_obj@Dimnames)
+  )
+  out
+}
