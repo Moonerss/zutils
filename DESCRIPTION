@@ -1,16 +1,23 @@
 Package: zutils
 Type: Package
-Title: What the Package Does (Title Case)
+Title: The function usually used in my analysis
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author@R: c(
+  person("Erjie", "Zhao", role = c("aut", "cre", "cph"), email = "2055469819@qq.com",
+  person()
+  )
+Description: The function usually used in my analysis.
 License: CC0
 Encoding: UTF-8
 LazyData: true
 Imports: 
+    dplyr,
     ggplot2,
-    RColorBrewer
+    magrittr,
+    RColorBrewer,
+    stringr,
+    tidyr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Suggests: 
+    clusterProfiler
