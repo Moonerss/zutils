@@ -15,11 +15,13 @@ get_finite <- function(x) {
 #' Transpose dgRMatrix to dgCMatrix
 #'
 #' @param dgRMatrix_obj a \code{dgRMatrix} object
+#'
+#' @importFrom methods new
 #' @return A dgCMatrix that is the transposed dgRMatrix
 #' @export
 transpose_dgRMatrix <- function(dgRMatrix_obj) {
-  if(class(dgRMatrix_obj) != 'dgRMatrix')
-    stop('inmat is not of class dgRMatrix')
+  if(!inherits(dgRMatrix_obj, 'dgRMatrix'))
+    stop('dgRMatrix_obj is not of class dgRMatrix')
   out <- new('dgCMatrix',
              i=dgRMatrix_obj@j,
              p=dgRMatrix_obj@p,

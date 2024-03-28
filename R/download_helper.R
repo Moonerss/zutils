@@ -5,6 +5,7 @@
 #' @param species supported organism listed in 'https://www.genome.jp/kegg/catalog/org_list.html'
 #' @param OrgDb OrgDb to convert gene ID
 #'
+#'
 #' @return A \code{tibble} object contain pathway informations
 #' @export
 
@@ -14,27 +15,27 @@ download_kegg_geneset <- function(species = 'hsa', OrgDb = 'org.Hs.eg.db') {
 
   ## pathway to gene
   pathway_to_gene <- KEGG_DATA$PATHID2EXTID %>%
-    enframe(name = 'id', value = 'gene') %>%
-    unnest(cols = c(gene))
+    tibble::enframe(name = 'id', value = 'gene') %>%
+    tidyr::unnest(cols = c(.data$gene))
   ## ene to pathway
   gene_to_pathway <- KEGG_DATA$EXTID2PATHID %>%
-    enframe(name = 'gene', value = 'id') %>%
-    unnest(cols = c(id))
+    tibble::enframe(name = 'gene', value = 'id') %>%
+    tidyr::unnest(cols = c(.data$id))
   ## merge into one
   merge_pathway_gene <- pathway_to_gene %>%
-    bind_rows(gene_to_pathway[,c(2,1)]) %>%
-    dplyr::group_by(id) %>%
-    nest() %>% dplyr::ungroup() %>%
-    dplyr::mutate(data = purrr::map(data, function(x) {
-      x %>% pull(gene) %>% unique()
+    dplyr::bind_rows(gene_to_pathway[,c(2,1)]) %>%
+    dplyr::group_by(.data$id) %>%
+    tidyr::nest() %>% dplyr::ungroup() %>%
+    dplyr::mutate(data = purrr::map(.data$data, function(x) {
+      x %>% dplyr::pull(.data$gene) %>% unique()
     })) %>%
     dplyr::rename(gene = data)
 
-  species_id <- merge_pathway_gene$id %>% str_sub(end = 3L) %>% unique()
+  species_id <- merge_pathway_gene$id %>% stringr::str_sub(end = 3L) %>% unique()
   ## merge result
   kegg_data <- kegg_category %>%
-    dplyr::mutate(id = str_c(species_id, id)) %>%
-    left_join(merge_pathway_gene, by = 'id')
+    dplyr::mutate(id = stringr::str_c(species_id, id)) %>%
+    dplyr::left_join(merge_pathway_gene, by = 'id')
   ## convert id
   all_gene <- merge_pathway_gene$gene %>% unlist() %>% unique()
   all_gene_convert <- clusterProfiler::bitr(all_gene, fromType = 'ENTREZID', toType = 'SYMBOL', OrgDb = OrgDb)
