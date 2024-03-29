@@ -3,6 +3,7 @@
 export("%>%")
 export(batch_combat)
 export(bbc_theme)
+export(dirichlet_regression)
 export(get_color_palette)
 export(get_finite)
 export(plot_venn)
