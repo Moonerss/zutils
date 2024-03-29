@@ -26,8 +26,12 @@ Suggests:
     grDevices,
     grid,
     impute,
+    mclust,
+    mixtools,
+    preprocessCore,
     purrr,
     readxl,
     sva,
     tibble,
-    VennDiagram
+    VennDiagram,
+    vsn
